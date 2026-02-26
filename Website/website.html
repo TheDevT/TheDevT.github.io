@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>✨ Digital Starfish</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+}
+
+body{
+    background:black;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* ===== Background Canvas ===== */
+.canvas-bg{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+}
+
+/* ===== Layout ===== */
+header{
+    padding:100px 10%;
+    text-align:center;
+}
+
+header h1{
+    font-size:3rem;
+    font-weight:600;
+}
+
+header p{
+    opacity:0.6;
+    margin-top:15px;
+}
+
+section{
+    padding:80px 10%;
+}
+
+.section-title{
+    font-size:2rem;
+    margin-bottom:40px;
+}
+
+/* ===== Glass Card ===== */
+.card{
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(20px);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:22px;
+    padding:35px;
+    margin-bottom:30px;
+    transition:all 0.4s ease;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    border:1px solid rgba(255,255,255,0.4);
+}
+
+/* ===== Expandable Content (FIXED) ===== */
+.content{
+    height:0;
+    overflow:hidden;
+    opacity:0;
+    transition:height 0.6s ease, opacity 0.4s ease;
+}
+
+.content.open{
+    opacity:1;
+    margin-top:25px;
+}
+
+/* ===== Image Styling ===== */
+.product-image{
+    width:100%;
+    border-radius:16px;
+    margin-bottom:20px;
+    opacity:0;
+    transform:translateY(15px);
+    transition:all 0.6s ease;
+}
+
+.content.open .product-image{
+    opacity:1;
+    transform:translateY(0);
+}
+
+button{
+    margin-top:20px;
+    padding:10px 20px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,0.3);
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(10px);
+    color:white;
+    cursor:pointer;
+    transition:all 0.3s ease;
+}
+
+button:hover{
+    background:white;
+    color:black;
+}
+
+footer{
+    text-align:center;
+    padding:60px;
+    opacity:0.4;
+}
+</style>
+</head>
+<body>
+
+<canvas class="canvas-bg"></canvas>
+
+<header>
+<h1>✨ Digital Starfish</h1>
+<p>Advanced Cybersecurity & Autonomous AI Systems</p>
+</header>
+
+<section>
+<h2 class="section-title">Products</h2>
+
+<!-- ARP GUARD -->
+<div class="card">
+<h3>ARP Guard</h3>
+<button onclick="toggle(this)">Read More</button>
+<div class="content">
+
+<img src="images/arp-guard.png" class="product-image" alt="ARP Guard Screenshot">
+
+<p>Windows ARP Spoofing & MITM Protection.</p>
+<ul>
+<li>Static IP→MAC Locking</li>
+<li>Auto NIC Disconnect</li>
+<li>Gateway Auto-Lock</li>
+<li>ARP Cache Guardian</li>
+<li>Counter-Flood Defence</li>
+<li>Protects against MITM, DNS spoofing, session hijacking & rogue gateways</li>
+</ul>
+</div>
+</div>
+
+<!-- AI NETWORK ENGINEER -->
+<div class="card">
+<h3>AI Network Engineer</h3>
+<button onclick="toggle(this)">Read More</button>
+<div class="content">
+
+<img src="images/ai-network-engineer.png" class="product-image" alt="AI Network Engineer Screenshot">
+
+<p>Advanced packet integrity & intelligent checksum correction system.</p>
+<ul>
+<li>Full packet capture</li>
+<li>Real-time checksum correction</li>
+<li>Malformed packet detection</li>
+<li>Packet injection defence</li>
+<li>Protection against polymorphic malware</li>
+<li>Traffic anomaly mitigation</li>
+</ul>
+</div>
+</div>
+
+<!-- SENTINEL -->
+<div class="card">
+<h3>Sentinel (WIP)</h3>
+<button onclick="toggle(this)">Read More</button>
+<div class="content">
+
+<img src="images/sentinel.png" class="product-image" alt="Sentinel Screenshot">
+
+<p>Next-generation unified AI-driven defence architecture integrating behavioural monitoring and autonomous mitigation systems.</p>
+
+</div>
+</div>
+
+<!-- BUSH ENGINE -->
+<div class="card">
+<h3>Bush Engine (Offline AI)</h3>
+<button onclick="toggle(this)">Read More</button>
+<div class="content">
+
+<img src="images/bush-engine.png" class="product-image" alt="Bush Engine Screenshot">
+
+<ul>
+<li>Fully offline AI engine</li>
+<li>No external APIs</li>
+<li>Trainable via chat correction</li>
+<li>"Add Variation" adaptive learning</li>
+<li>Emerging agentic intelligence</li>
+<li>Can generate websites & understands Python</li>
+</ul>
+</div>
+</div>
+
+</section>
+
+<footer>
+© 2026 ✨ Digital Starfish
+</footer>
+
+<script>
+/* ===== FIXED EXPAND ANIMATION ===== */
+function toggle(button){
+    const content = button.nextElementSibling;
+
+    if(content.classList.contains("open")){
+        content.style.height = content.scrollHeight + "px";
+        requestAnimationFrame(() => {
+            content.style.height = "0px";
+        });
+        content.classList.remove("open");
+        button.innerText = "Read More";
+    } else {
+        content.classList.add("open");
+        content.style.height = content.scrollHeight + "px";
+        button.innerText = "Close";
+    }
+}
+
+/* ===== Smooth Ambient Background ===== */
+const canvas = document.querySelector(".canvas-bg");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let shapes = [];
+for(let i=0;i<35;i++){
+    shapes.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        size:Math.random()*70+30,
+        speedX:(Math.random()-0.5)*0.12,
+        speedY:(Math.random()-0.5)*0.12,
+        type:Math.floor(Math.random()*3)
+    });
+}
+
+function draw(s){
+    ctx.strokeStyle="rgba(255,255,255,0.25)";
+    ctx.lineWidth=0.7;
+    ctx.beginPath();
+
+    if(s.type===0){
+        ctx.rect(s.x,s.y,s.size,s.size);
+    }else if(s.type===1){
+        ctx.arc(s.x,s.y,s.size/2,0,Math.PI*2);
+    }else{
+        ctx.moveTo(s.x,s.y);
+        ctx.lineTo(s.x+s.size,s.y);
+        ctx.lineTo(s.x+s.size/2,s.y-s.size);
+        ctx.closePath();
+    }
+
+    ctx.stroke();
+}
+
+function animate(){
+    ctx.fillStyle="rgba(0,0,0,0.2)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    shapes.forEach(s=>{
+        s.x+=s.speedX;
+        s.y+=s.speedY;
+
+        if(s.x<-100||s.x>canvas.width+100) s.speedX*=-1;
+        if(s.y<-100||s.y>canvas.height+100) s.speedY*=-1;
+
+        draw(s);
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+window.addEventListener("resize",()=>{
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+});
+</script>
+
+</body>
+</html>
